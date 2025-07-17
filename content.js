@@ -13,13 +13,6 @@ function clearHighlights() {
         parent.removeChild(span);
     });
 
-    // Удаляем рамки с элементов, которые были выделены по атрибутам - ЭТОТ БЛОК ТЕПЕРЬ МОЖНО УДАЛИТЬ
-    // document.querySelectorAll('.chrome-extension-attribute-highlight').forEach(el => {
-    //     el.style.outline = 'none';
-    //     el.style.outlineOffset = 'initial';
-    //     el.classList.remove('chrome-extension-attribute-highlight');
-    // });
-
     document.body.normalize(); // Объединяем соседние текстовые узлы
     currentMatches = [];
     currentIndex = -1;
@@ -166,15 +159,8 @@ function searchAndHighlight(query) {
                         }
                     }
                 } else if (item.type === 'attribute' || item.type === 'input_value') {
-                    // **УДАЛЯЕМ ЛОГИКУ ДОБАВЛЕНИЯ РАМОК ЗДЕСЬ**
                     const element = item.node;
-                    // Мы все равно добавляем элемент в currentMatchGroup, чтобы по Enter можно было к нему перейти,
-                    // но без визуального выделения рамкой.
-                    // Если вы НЕ хотите переходить к элементам, найденным в атрибутах, тогда этот 'if' и 'push'
-                    // тоже нужно будет удалить, или добавить другой тип в currentMatchGroup.
                     if (!element.classList.contains('chrome-extension-attribute-highlight')) {
-                        // element.style.outline = '2px solid yellow'; // УДАЛЕНО
-                        // element.style.outlineOffset = '2px';     // УДАЛЕНО
                         element.classList.add('chrome-extension-attribute-highlight'); // Класс можно оставить для идентификации, но он не будет стилизовать рамку
                         currentMatchGroup.push(element); // Добавляем в группу
                     }
