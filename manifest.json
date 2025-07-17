@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Продвинутый Поиск Текста",
+  "name": "findX",
   "version": "1.0",
   "description": "Поиск и выделение текста с учетом регистра и сложных запросов.",
   "permissions": [
