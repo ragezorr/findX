@@ -1,16 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"> <title>Продвинутый Поиск</title>
+    <meta charset="UTF-8">
+    <title>findX</title>
     <style>
-        body { font-family: sans-serif; padding: 10px; width: 300px; }
-        input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
-        /* Удаляем кнопку, так как поиск будет по вводу */
+        body {
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+            width: 250px;
+            height: 35px;
+            background-color: #1c1c1c; /* более тёмный фон */
+            color: #f0f0f0; /* светлый текст */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        #searchText {
+            flex: 1;
+            height: 100%;
+            padding: 0 6px;
+            font-size: 14px;
+            background-color: transparent;
+            color: #f0f0f0;
+            border: none;
+            outline: none;
+            box-shadow: none;
+        }
+
+        #searchText::placeholder {
+            color: #888; /* светло-серый */
+        }
+
+        .divider {
+            color: #555;
+            padding: 0 4px;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            opacity: 0.8;
+            filter: brightness(0) invert(1); /* белая иконка */
+            transition: opacity 0.2s ease;
+            cursor: pointer;
+        }
+
+        .icon:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <h1>Поиск на странице</h1>
-    <input type="text" id="searchText" placeholder="Введите текст или несколько запросов через |">
+    <div class="input-container">
+        <input type="text" id="searchText" placeholder="Поиск на странице..." autofocus />
+        <span class="divider">│</span>
+        <img class="icon" src="img/wrench.svg" alt="Settings" title="Настройки" />
+    </div>
     <script src="popup.js"></script>
 </body>
 </html>

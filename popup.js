@@ -11,19 +11,27 @@ function highlightText(searchText) {
 }
 
 // Альтернативный и, возможно, более чистый способ:
-document.getElementById('searchText').addEventListener('input', (event) => {
-    const searchText = event.target.value;
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        // Отправляем сообщение в content.js
-        chrome.tabs.sendMessage(tabs[0].id, { action: "searchAndHighlight", query: searchText });
-    });
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const searchText = document.getElementById('searchText');
+    searchText.focus(); // Устанавливаем фокус на поле ввода сразу при загрузке попапа
 
-document.getElementById('searchText').addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
+    searchText.addEventListener('input', (event) => {
+        const query = event.target.value;
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            chrome.tabs.sendMessage(tabs[0].id, { action: "nextHighlight" });
+            if (tabs.length > 0) {
+                chrome.tabs.sendMessage(tabs[0].id, { action: "searchAndHighlight", query: query });
+            }
         });
-        event.preventDefault(); // Предотвращаем стандартное действие Enter (например, отправку формы)
-    }
+    });
+
+    searchText.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs.length > 0) {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: "nextHighlight" });
+                }
+            });
+            event.preventDefault();
+        }
+    });
 });
